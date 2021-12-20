@@ -9,8 +9,7 @@ You might find the :doc:`Glossary of tactics<tactics>` page and the :doc:`Pretty
 
 Before we move on to new stuff, let's understand what we did yesterday.
 
-Behind the scenes
-==================
+# Behind the scenes
 
 **A note on brackets:**
 It is not uncommon to compose half a dozen functions in Lean.
@@ -22,8 +21,8 @@ As such, Lean will often drop the brackets by following the following convention
 
 An easy way to remember this is that, arrows are bracketed on the right and binary operators on the left.
 
-Proof irrelevance
--------------------
+## Proof irrelevance
+
 It might feel a bit weird to say that a proposition has proofs as its inhabitants.
 Proofs can get huge and it seems unnecessary to have to remember not just the statement but also its proof.
 This is something we don't normally do in math.
@@ -35,18 +34,17 @@ This is of course not true for general types.
 For example, `0 : ℕ ≠ 1 : ℕ`.
 
 
-Proofs as functions
---------------------
+## Proofs as functions
 
 Every time you successfully construct a proof of a theorem say
 
-.. code::
-
-  theorem tautology (P : Prop) : P → P :=
-  begin
-    intro hp,
-    exact hp,
-  end
+``` lean
+theorem tautology (P : Prop) : P → P :=
+begin
+  intro hp,
+  exact hp,
+end
+```
 
 Lean constructs a *proof term* `tautology : ∀ P : Prop, P → P`
 (you can see this by typing `#check tautology`).
@@ -58,24 +56,23 @@ If `Q : Prop`, then `tautology(Q)` is a term of type  `Q → Q`.
 
 Consider a theorem with multiple hypothesis, say
 
-.. code::
-
-  theorem hello_world (hp : P) (hq : Q) (hr : R) : S
+``` lean
+theorem hello_world (hp : P) (hq : Q) (hr : R) : S
+```
 
 Once we provide a proof of it, Lean will create a proof term
 `hello_world : (hp:P) → (hq:Q) → (hr:R) → S`.
 So that if we have terms `hp' : P`, `hq' : Q`, `hr' : R`
 then `hello_world hp' hq' hr'` (note the convenient lack of brackets) will be a term of type `S`.
 
-
 Once constructed, any term can be used in a later proof. For example,
 
-.. code::
-
-  example (P Q : Prop) : (P → Q) → (P → Q) :=
-  begin
-    exact tautology (P → Q),
-  end
+``` lean
+example (P Q : Prop) : (P → Q) → (P → Q) :=
+begin
+  exact tautology (P → Q),
+end
+```
 
 This is how Lean simulates mathematics.
 Every time you prove a theorem using tactics a *proof term* gets created.
@@ -90,8 +87,8 @@ We'll now continue our study of the remaining logical operators: *and* (`∧`),
 *for all* (`∀`),
 *there exists* (`∃`).
 
-And / Or
-===============================
+# And / Or
+
 The operators *and* (`∧`) and *or* (`∨`) are very easy to use in Lean.
 Given a term `hpq : P ∧ Q`,
 there are tactics that let you
@@ -137,67 +134,67 @@ Similarly for `P ∨ Q`, with a subtle change (see below).
       `right,` changes the target to `Q`.
 
 
-.. code:: lean
+``` lean
+import tactic
 
-  import tactic
+-- these two statements tell Lean to use the law of excluded middle as necessary
+noncomputable theory
+open_locale classical
 
-  -- these two statements tell Lean to use the law of excluded middle as necessary
-  noncomputable theory
-  open_locale classical
-
-  --BEGIN--
+--BEGIN--
 
 
-  /--------------------------------------------------------------------------
+/--------------------------------------------------------------------------
 
-  `cases`
+`cases`
 
-    `cases` is a general tactic that breaks up complicated terms.
-    If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
-    `cases hpq with hp hq,`.
+  `cases` is a general tactic that breaks up complicated terms.
+  If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
+  `cases hpq with hp hq,`.
 
-  `split`
+`split`
 
-    If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
-    `split,`.
+  If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
+  `split,`.
 
-  `left`/`right`
+`left`/`right`
 
-    If the target of the current goal is `P ∨ Q`, then use
-    either `left,` or `right,` (choose wisely).
+  If the target of the current goal is `P ∨ Q`, then use
+  either `left,` or `right,` (choose wisely).
 
-  `exfalso`
+`exfalso`
 
-    Changes the target of the current goal to `false`.
+  Changes the target of the current goal to `false`.
 
-  Delete the `sorry,` below and replace them with a legitimate proof.
+Delete the `sorry,` below and replace them with a legitimate proof.
 
-  --------------------------------------------------------------------------/
+--------------------------------------------------------------------------/
 
-  example (P Q : Prop) : P ∧ Q → Q ∧ P :=
-  begin
-    sorry,
-  end
+example (P Q : Prop) : P ∧ Q → Q ∧ P :=
+begin
+  sorry,
+end
 
-  example (P Q : Prop) : P ∨ Q → Q ∨ P :=
-  begin
-    sorry,
-  end
+example (P Q : Prop) : P ∨ Q → Q ∨ P :=
+begin
+  sorry,
+end
 
-  example (P Q R : Prop) : P ∧ false ↔ false :=
-  begin
-    sorry,
-  end
+example (P Q R : Prop) : P ∧ false ↔ false :=
+begin
+  sorry,
+end
 
-  theorem principle_of_explosion (P Q : Prop) : P ∧ ¬ P → Q :=
-  begin
-    sorry,
-  end
+theorem principle_of_explosion (P Q : Prop) : P ∧ ¬ P → Q :=
+begin
+  sorry,
+end
 
-  --END--
+--END--
+```
 
-Quantifiers
-==============
+# Quantifiers
+
 As mentioned it the introduction the *for all* quantifier, `∀`, is a generalization of a function.
 As such the tactics for dealing with `∀` are the same as those for `→`.
 
@@ -233,32 +230,31 @@ If you have a term `hp : ∃ x : X, P x` then from this you can extract a witnes
       and `y` is a term of type `X`, then
       `use y,` changes the target to `P y` and tries to close the goal.
 
-Geometry
-================================================================
+# Geometry
 
 Now it's your turn! Introduce Hilbert's axioms for between-ness. We'll give you the
 ones for incidence from yesterday.
 
-.. code:: lean
+``` lean
+import tactic
+constants Point Line : Type*
+constant belongs : Point → Line → Prop
+local notation A `∈` L := belongs A L
+local notation A `∉` L := ¬ belongs A L
 
-  import tactic
-  constants Point Line : Type*
-  constant belongs : Point → Line → Prop
-  local notation A `∈` L := belongs A L
-  local notation A `∉` L := ¬ belongs A L
+-- I1: there is a unique line passing through two distinct points.
+axiom I1 (A B : Point) (h : A ≠ B) : ∃! (ℓ : Line) , A ∈ ℓ ∧ B ∈ ℓ
 
-  -- I1: there is a unique line passing through two distinct points.
-  axiom I1 (A B : Point) (h : A ≠ B) : ∃! (ℓ : Line) , A ∈ ℓ ∧ B ∈ ℓ
+-- I2: any line contains at least two points.
+axiom I2 (ℓ : Line) : ∃ A B : Point, A ≠ B ∧ A ∈ ℓ ∧ B ∈ ℓ
 
-  -- I2: any line contains at least two points.
-  axiom I2 (ℓ : Line) : ∃ A B : Point, A ≠ B ∧ A ∈ ℓ ∧ B ∈ ℓ
+-- I3: there exists 3 non-collinear points.
+axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Line, (A ∈ ℓ ∧ B ∈ ℓ) → (¬ (C ∈ ℓ) )))
 
-  -- I3: there exists 3 non-collinear points.
-  axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Line, (A ∈ ℓ ∧ B ∈ ℓ) → (¬ (C ∈ ℓ) )))
+-- We can make our own definitions
+def collinear (A B C : Point) : Prop := ∃ (ℓ : Line), (A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
 
-  -- We can make our own definitions
-  def collinear (A B C : Point) : Prop := ∃ (ℓ : Line), (A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
-
-  -- We define the between-ness relation
-  constant between : Point → Point → Point → Prop
-  local notation A `*` B `*` C := between A B C
+-- We define the between-ness relation
+constant between : Point → Point → Point → Prop
+local notation A `*` B `*` C := between A B C
+```
