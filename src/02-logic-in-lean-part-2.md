@@ -17,8 +17,8 @@ It is not uncommon to compose half a dozen functions in Lean.
 The brackets get really messy and unwieldy.
 As such, Lean will often drop the brackets by following the following conventions.
 
-* The function ``P → Q → R → S`` stands for ``P → (Q → (R → S))``.
-* The expression ``a + b + c + d`` stands for ``((a + b) + c) + d``.
+* The function `P → Q → R → S` stands for `P → (Q → (R → S))`.
+* The expression `a + b + c + d` stands for `((a + b) + c) + d`.
 
 An easy way to remember this is that, arrows are bracketed on the right and binary operators on the left.
 
@@ -28,11 +28,11 @@ It might feel a bit weird to say that a proposition has proofs as its inhabitant
 Proofs can get huge and it seems unnecessary to have to remember not just the statement but also its proof.
 This is something we don't normally do in math.
 To hide this complication, in type theory there is an axiom, called *proof irrelevance*, which says that
-if ``P : Prop`` and ``hp1 hp2 : P`` then ``hp1 = hp2``.
+if `P : Prop` and `hp1 hp2 : P` then `hp1 = hp2`.
 Taking our *analogy* with sets further, you can think of a proposition as a set which is either empty or contains a single element (false or true).
 In fact, in some forms of type theory (e.g. `homotopy type theory <https://en.wikipedia.org/wiki/Homotopy_type_theory>`__) this is taken as the definition of propositions.
 This is of course not true for general types.
-For example, ``0 : ℕ ≠ 1 : ℕ``.
+For example, `0 : ℕ ≠ 1 : ℕ`.
 
 
 Proofs as functions
@@ -48,13 +48,13 @@ Every time you successfully construct a proof of a theorem say
     exact hp,
   end
 
-Lean constructs a *proof term* ``tautology : ∀ P : Prop, P → P``
-(you can see this by typing ``#check tautology``).
+Lean constructs a *proof term* `tautology : ∀ P : Prop, P → P`
+(you can see this by typing `#check tautology`).
 
-In type theory, the *for all* quantifier, ``∀``, is a generalized function, called a `dependent function <https://en.wikipedia.org/wiki/Dependent_type>`__.
-For all practical purposes, we can think of ``tautology`` as having the type ``(P : Prop) → (P → P)``.
-Note that this is not a function in the classical sense of the word because the codomain ``(P → P)`` *depends* on the input variable ``P``.
-If ``Q : Prop``, then ``tautology(Q)`` is a term of type  ``Q → Q``.
+In type theory, the *for all* quantifier, `∀`, is a generalized function, called a `dependent function <https://en.wikipedia.org/wiki/Dependent_type>`__.
+For all practical purposes, we can think of `tautology` as having the type `(P : Prop) → (P → P)`.
+Note that this is not a function in the classical sense of the word because the codomain `(P → P)` *depends* on the input variable `P`.
+If `Q : Prop`, then `tautology(Q)` is a term of type  `Q → Q`.
 
 Consider a theorem with multiple hypothesis, say
 
@@ -63,9 +63,9 @@ Consider a theorem with multiple hypothesis, say
   theorem hello_world (hp : P) (hq : Q) (hr : R) : S
 
 Once we provide a proof of it, Lean will create a proof term
-``hello_world : (hp:P) → (hq:Q) → (hr:R) → S``.
-So that if we have terms ``hp' : P``, ``hq' : Q``, ``hr' : R``
-then ``hello_world hp' hq' hr'`` (note the convenient lack of brackets) will be a term of type ``S``.
+`hello_world : (hp:P) → (hq:Q) → (hr:R) → S`.
+So that if we have terms `hp' : P`, `hq' : Q`, `hr' : R`
+then `hello_world hp' hq' hr'` (note the convenient lack of brackets) will be a term of type `S`.
 
 
 Once constructed, any term can be used in a later proof. For example,
@@ -84,19 +84,19 @@ only remembers its type.
 All the proof terms can then be used in later proofs.
 All of this falls under the giant umbrella of the `Curry--Howard correspondence <https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence>`__.
 
-We'll now continue our study of the remaining logical operators: *and* (``∧``),
-*or* (``∨``),
-*if and only if* (``↔``),
-*for all* (``∀``),
-*there exists* (``∃``).
+We'll now continue our study of the remaining logical operators: *and* (`∧`),
+*or* (`∨`),
+*if and only if* (`↔`),
+*for all* (`∀`),
+*there exists* (`∃`).
 
 And / Or
 ===============================
-The operators *and* (``∧``) and *or* (``∨``) are very easy to use in Lean.
-Given a term ``hpq : P ∧ Q``,
+The operators *and* (`∧`) and *or* (`∨`) are very easy to use in Lean.
+Given a term `hpq : P ∧ Q`,
 there are tactics that let you
-create terms ``hp : P`` and ``hq : Q``, and vice versa.
-Similarly for ``P ∨ Q``, with a subtle change (see below).
+create terms `hp : P` and `hq : Q`, and vice versa.
+Similarly for `P ∨ Q`, with a subtle change (see below).
 
 **Note** that when multiple goals are open, you are trying to solve the topmost goal.
 
@@ -104,37 +104,37 @@ Similarly for ``P ∨ Q``, with a subtle change (see below).
   :widths: 10 90
   :header-rows: 0
 
-  * - ``cases``
-    - ``cases`` is a general tactic that breaks a complicated term into simpler ones.
+  * - `cases`
+    - `cases` is a general tactic that breaks a complicated term into simpler ones.
 
-      If ``hpq`` is a term of type ``P ∧ Q``, then
-      ``cases hpq with hp hq,`` breaks it into ``hp : P`` and ``hp : Q``.
+      If `hpq` is a term of type `P ∧ Q`, then
+      `cases hpq with hp hq,` breaks it into `hp : P` and `hp : Q`.
 
-      If ``fg`` is a term of type ``P ↔ Q``, then
-      ``cases fg with f g,`` breaks it into ``f : P → Q`` and ``g : Q → P``.
+      If `fg` is a term of type `P ↔ Q`, then
+      `cases fg with f g,` breaks it into `f : P → Q` and `g : Q → P`.
 
-      If ``hpq`` is a term of type ``P ∨ Q``, then
-      ``cases hpq with hp hq,`` creates two goals and adds the hypotheses ``hp : P`` and ``hq : Q`` to one each.
+      If `hpq` is a term of type `P ∨ Q`, then
+      `cases hpq with hp hq,` creates two goals and adds the hypotheses `hp : P` and `hq : Q` to one each.
 
-  * - ``split``
-    - ``split`` is a general tactic that breaks a complicated goal into simpler ones.
+  * - `split`
+    - `split` is a general tactic that breaks a complicated goal into simpler ones.
 
-      If the target of the current goal is ``P ∧ Q``, then
-      ``split,`` breaks up the goal into two goals with targets ``P`` and ``Q``.
+      If the target of the current goal is `P ∧ Q`, then
+      `split,` breaks up the goal into two goals with targets `P` and `Q`.
 
-      If the target of the current goal is ``P × Q``, then
-      ``split,`` breaks up the goal into two goals with targets ``P`` and ``Q``.
+      If the target of the current goal is `P × Q`, then
+      `split,` breaks up the goal into two goals with targets `P` and `Q`.
 
-      If the target of the current goal is ``P ↔ Q``, then
-      ``split,`` breaks up the goal into two goals with targets ``P → Q`` and ``Q → P``.
+      If the target of the current goal is `P ↔ Q`, then
+      `split,` breaks up the goal into two goals with targets `P → Q` and `Q → P`.
 
-  * - ``left``
-    - If the target of the current goal is ``P ∨ Q``, then
-      ``left,`` changes the target to ``P``.
+  * - `left`
+    - If the target of the current goal is `P ∨ Q`, then
+      `left,` changes the target to `P`.
 
-  * - ``right``
-    - If the target of the current goal is ``P ∨ Q``, then
-      ``right,`` changes the target to ``Q``.
+  * - `right`
+    - If the target of the current goal is `P ∨ Q`, then
+      `right,` changes the target to `Q`.
 
 
 .. code:: lean
@@ -150,27 +150,27 @@ Similarly for ``P ∨ Q``, with a subtle change (see below).
 
   /--------------------------------------------------------------------------
 
-  ``cases``
+  `cases`
 
-    ``cases`` is a general tactic that breaks up complicated terms.
-    If ``hpq`` is a term of type ``P ∧ Q`` or ``P ∨ Q`` or ``P ↔ Q``, then use
-    ``cases hpq with hp hq,``.
+    `cases` is a general tactic that breaks up complicated terms.
+    If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
+    `cases hpq with hp hq,`.
 
-  ``split``
+  `split`
 
-    If the target of the current goal is ``P ∧ Q`` or ``P ↔ Q``, then use
-    ``split,``.
+    If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
+    `split,`.
 
-  ``left``/``right``
+  `left`/`right`
 
-    If the target of the current goal is ``P ∨ Q``, then use
-    either ``left,`` or ``right,`` (choose wisely).
+    If the target of the current goal is `P ∨ Q`, then use
+    either `left,` or `right,` (choose wisely).
 
-  ``exfalso``
+  `exfalso`
 
-    Changes the target of the current goal to ``false``.
+    Changes the target of the current goal to `false`.
 
-  Delete the ``sorry,`` below and replace them with a legitimate proof.
+  Delete the `sorry,` below and replace them with a legitimate proof.
 
   --------------------------------------------------------------------------/
 
@@ -198,40 +198,40 @@ Similarly for ``P ∨ Q``, with a subtle change (see below).
 
 Quantifiers
 ==============
-As mentioned it the introduction the *for all* quantifier, ``∀``, is a generalization of a function.
-As such the tactics for dealing with ``∀`` are the same as those for ``→``.
+As mentioned it the introduction the *for all* quantifier, `∀`, is a generalization of a function.
+As such the tactics for dealing with `∀` are the same as those for `→`.
 
 .. list-table::
   :widths: 10 90
   :header-rows: 0
 
-  * - ``have``
-    - If ``hp`` is a term of type ``∀ x : X, P x`` and
-      ``y`` is a term of type ``X`` then
-      ``have hpy := hp(y)`` creates a hypothesis ``hpy : P y``.
+  * - `have`
+    - If `hp` is a term of type `∀ x : X, P x` and
+      `y` is a term of type `X` then
+      `have hpy := hp(y)` creates a hypothesis `hpy : P y`.
 
-  * - ``intro``
-    - If the target of the current goal is ``∀ x : X, P x``, then
-      ``intro x,`` creates a hypothesis ``x : X`` and
-      changes the target to ``P x``.
+  * - `intro`
+    - If the target of the current goal is `∀ x : X, P x`, then
+      `intro x,` creates a hypothesis `x : X` and
+      changes the target to `P x`.
 
-The *there exists* quantifier, ``∃``, in type theory is very intuitive.
-If you want to prove a statement ``∃ x : X, P x`` then you need to provide a witness.
-If you have a term ``hp : ∃ x : X, P x`` then from this you can extract a witness.
+The *there exists* quantifier, `∃`, in type theory is very intuitive.
+If you want to prove a statement `∃ x : X, P x` then you need to provide a witness.
+If you have a term `hp : ∃ x : X, P x` then from this you can extract a witness.
 
 .. list-table::
   :widths: 10 90
   :header-rows: 0
 
-  * - ``cases``
-    - If ``hp`` is a term of type ``∃ x : X, P x``, then
-      ``cases hp with x key,`` breaks it into
-      ``x : X`` and ``key : P x``.
+  * - `cases`
+    - If `hp` is a term of type `∃ x : X, P x`, then
+      `cases hp with x key,` breaks it into
+      `x : X` and `key : P x`.
 
-  * - ``use``
-    - If the target of the current goal is ``∃ x : X, P x``
-      and ``y`` is a term of type ``X``, then
-      ``use y,`` changes the target to ``P y`` and tries to close the goal.
+  * - `use`
+    - If the target of the current goal is `∃ x : X, P x`
+      and `y` is a term of type `X`, then
+      `use y,` changes the target to `P y` and tries to close the goal.
 
 Geometry
 ================================================================
