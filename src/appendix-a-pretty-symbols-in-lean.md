@@ -1,5 +1,5 @@
 ---
-title: Pretty Symbols in Lean
+title: "Appendix A: Pretty Symbols in Lean"
 ---
 
 TODO

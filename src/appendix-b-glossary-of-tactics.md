@@ -1,5 +1,5 @@
 ---
-title: Glossary of tactics
+title: "Appendix B: Glossary of tactics"
 ---
 
 TODO
