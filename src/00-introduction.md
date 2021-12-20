@@ -85,11 +85,12 @@ Large chunks of these notes are taken directly from <https://apurvanakade.github
 
 - [Formalizing 100 theorems](http://www.cs.ru.nl/~freek/100/index.html)
 - [Formalizing 100 theorems in Lean](https://leanprover-community.github.io/100.html)
-- Articles, videos, blog posts, etc.
-  - [The Xena Project](https://xenaproject.wordpress.com/)
-  - [The Mechanization of Mathematics](https://www.ams.org/journals/notices/201806/rnoti-p681.pdf)
-  - [The Future of Mathematics](https://www.youtube.com/watch?v=Dp-mQ3HxgDE)
-- [Lean Zulip chat group](https://leanprover.zulipchat.com/)
-- [Lecture videos from LFTCM 2020](https://www.youtube.com/playlist?list=PLlF-CfQhukNlxexiNJErGJd2dte_J1t1N)
 - [mathlib](https://leanprover-community.github.io)
 - [mathlib repository](https://github.com/leanprover-community/mathlib)
+- [Lean Zulip chat group](https://leanprover.zulipchat.com/)
+
+**Articles, videos & blog posts:**
+- [The Xena Project](https://xenaproject.wordpress.com/)
+- [The Mechanization of Mathematics](https://www.ams.org/journals/notices/201806/rnoti-p681.pdf)
+- [The Future of Mathematics](https://www.youtube.com/watch?v=Dp-mQ3HxgDE)
+- [Lecture videos from LFTCM 2020](https://www.youtube.com/playlist?list=PLlF-CfQhukNlxexiNJErGJd2dte_J1t1N)
