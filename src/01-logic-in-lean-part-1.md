@@ -336,16 +336,17 @@ For the following exercises, you only require `exfalso`, `push_neg`, and `contra
 >
 > Delete the `sorry,` below and replace them with a legitimate proof.
 
-``` lean
+<!--
+``` lean dependency
 import tactic
 
 -- these two statements tell Lean to use the law of excluded middle as necessary
 noncomputable theory
 open_locale classical
+```
+-->
 
-
---BEGIN--
-
+``` lean
 theorem not_not_self_imp_self (P : Prop) : ¬ ¬ P → P:=
 begin
   sorry,
@@ -365,8 +366,6 @@ theorem principle_of_explosion (P Q : Prop) : P → (¬ P → Q) :=
 begin
   sorry,
 end
-
---END--
 ```
 
 # Geometry
@@ -383,14 +382,17 @@ local notation A `∉` L := ¬ belongs A L
 
 Here is how we can introduce axioms.
 
-``` lean
+<!--
+``` lean hide dependency
 import tactic
 constants Point Line : Type*
 constant belongs : Point → Line → Prop
 local notation A `∈` L := belongs A L
 local notation A `∉` L := ¬ belongs A L
+```
+-->
 
---BEGIN--
+``` lean
 -- I1: there is a unique line passing through two distinct points.
 axiom I1 (A B : Point) (h : A ≠ B) : ∃! (ℓ : Line) , A ∈ ℓ ∧ B ∈ ℓ
 
@@ -399,13 +401,13 @@ axiom I2 (ℓ : Line) : ∃ A B : Point, A ≠ B ∧ A ∈ ℓ ∧ B ∈ ℓ
 
 -- I3: there exists 3 non-collinear points.
 axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Line, (A ∈ ℓ ∧ B ∈ ℓ) → (¬ (C ∈ ℓ) )))
---END--
 ```
 
 Axiom I3 really says that there are 3 non-collinear points. We can make actually define
 what it means to be collinear and prove a statement which is easier to remember.
 
-```  lean
+<!--
+``` lean hide dependency
 import tactic
 constants Point Line : Type*
 constant belongs : Point → Line → Prop
@@ -420,8 +422,10 @@ axiom I2 (ℓ : Line) : ∃ A B : Point, A ≠ B ∧ A ∈ ℓ ∧ B ∈ ℓ
 
 -- I3: there exists 3 non-collinear points.
 axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Line, (A ∈ ℓ ∧ B ∈ ℓ) → (¬ (C ∈ ℓ) )))
+```
+-->
 
---BEGIN--
+``` lean
 -- We can make our own definitions
 def collinear (A B C : Point) : Prop := ∃ (ℓ : Line), (A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
 
@@ -430,13 +434,13 @@ example : ∃ A B C : Point, ¬ collinear A B C :=
 begin
   sorry
 end
---END--
 ```
 
 In the morning we proved quite in detail the following theorem (we called Theorem 1). Before trying to prove it,
 make sure that the *Lean* statement is really what the English sentence says.
 
-``` lean
+<!--
+``` lean hide dependency
 import tactic
 constants Point Line : Type*
 constant belongs : Point → Line → Prop
@@ -454,19 +458,21 @@ axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Li
 
 -- We can make our own definitions
 def collinear (A B C : Point) : Prop := ∃ (ℓ : Line), (A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
+```
+-->
 
---BEGIN--
+``` lean
 -- Two distinct lines meet at most at one point
 example (r s : Line) (h : r ≠ s) (A B : Point) : A ∈ r ∧ B ∈ r ∧ A ∈ s ∧ B ∈ s → A = B :=
 begin
   sorry
 end
---END--
 ```
 
 Let's prove another useful lemma: given a line, there is a point outside it.
 
-``` lean
+<!--
+``` lean hide dependency
 import tactic
 constants Point Line : Type*
 constant belongs : Point → Line → Prop
@@ -484,8 +490,10 @@ axiom I3 : ∃ A B C : Point, (A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ (∀ ℓ : Li
 
 -- We can make our own definitions
 def collinear (A B C : Point) : Prop := ∃ (ℓ : Line), (A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
+```
+-->
 
---BEGIN--
+``` lean
 -- Use I3 to prove the following lemma
 lemma exists_point_not_on_line (ℓ : Line): ∃ A : Point, A ∉ ℓ :=
 begin
@@ -497,5 +505,4 @@ lemma exists_point_not_on_two_line (r s : Line): ∃ A : Point, A ∉ r ∧ A �
 begin
   sorry
 end
---END--
 ```

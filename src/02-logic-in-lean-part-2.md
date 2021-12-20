@@ -153,15 +153,17 @@ Similarly for `P ∨ Q`, with a subtle change (see below).
 >
 > Delete the `sorry,` below and replace them with a legitimate proof.
 
+<!--
 ``` lean
 import tactic
 
 -- these two statements tell Lean to use the law of excluded middle as necessary
 noncomputable theory
 open_locale classical
+```
+-->
 
---BEGIN--
-
+``` lean
 example (P Q : Prop) : P ∧ Q → Q ∧ P :=
 begin
   sorry,
@@ -181,8 +183,6 @@ theorem principle_of_explosion (P Q : Prop) : P ∧ ¬ P → Q :=
 begin
   sorry,
 end
-
---END--
 ```
 
 # Quantifiers
