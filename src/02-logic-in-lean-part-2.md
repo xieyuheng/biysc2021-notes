@@ -133,20 +133,24 @@ Similarly for `P ∨ Q`, with a subtle change (see below).
   `right,` changes the target to `Q`.
 
 
-> - `cases`:
+> - `cases`
+>
 >   `cases` is a general tactic that breaks up complicated terms.
 >   If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
 >   `cases hpq with hp hq,`.
 >
-> - `split`:
+> - `split`
+>
 >   If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
 >   `split,`.
 >
-> - `left`/`right`:
+> - `left`/`right`
+>
 >   If the target of the current goal is `P ∨ Q`, then use
 >   either `left,` or `right,` (choose wisely).
 >
-> - `exfalso`:
+> - `exfalso`
+>
 >   Changes the target of the current goal to `false`.
 >
 > Delete the `sorry,` below and replace them with a legitimate proof.
@@ -188,37 +192,33 @@ end
 As mentioned it the introduction the *for all* quantifier, `∀`, is a generalization of a function.
 As such the tactics for dealing with `∀` are the same as those for `→`.
 
-.. list-table::
-  :widths: 10 90
-  :header-rows: 0
+- `have`
 
-  * - `have`
-    - If `hp` is a term of type `∀ x : X, P x` and
-      `y` is a term of type `X` then
-      `have hpy := hp(y)` creates a hypothesis `hpy : P y`.
+  If `hp` is a term of type `∀ x : X, P x` and
+  `y` is a term of type `X` then
+  `have hpy := hp(y)` creates a hypothesis `hpy : P y`.
 
-  * - `intro`
-    - If the target of the current goal is `∀ x : X, P x`, then
-      `intro x,` creates a hypothesis `x : X` and
-      changes the target to `P x`.
+- `intro`
+
+  If the target of the current goal is `∀ x : X, P x`, then
+  `intro x,` creates a hypothesis `x : X` and
+  changes the target to `P x`.
 
 The *there exists* quantifier, `∃`, in type theory is very intuitive.
 If you want to prove a statement `∃ x : X, P x` then you need to provide a witness.
 If you have a term `hp : ∃ x : X, P x` then from this you can extract a witness.
 
-.. list-table::
-  :widths: 10 90
-  :header-rows: 0
+- `cases`
 
-  * - `cases`
-    - If `hp` is a term of type `∃ x : X, P x`, then
-      `cases hp with x key,` breaks it into
-      `x : X` and `key : P x`.
+  If `hp` is a term of type `∃ x : X, P x`, then
+  `cases hp with x key,` breaks it into
+  `x : X` and `key : P x`.
 
-  * - `use`
-    - If the target of the current goal is `∃ x : X, P x`
-      and `y` is a term of type `X`, then
-      `use y,` changes the target to `P y` and tries to close the goal.
+- `use`
+
+  If the target of the current goal is `∃ x : X, P x`
+  and `y` is a term of type `X`, then
+  `use y,` changes the target to `P y` and tries to close the goal.
 
 # Geometry
 

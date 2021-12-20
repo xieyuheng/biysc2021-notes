@@ -94,33 +94,31 @@ Solve the following exercises to see the tactics in action.
 
 The first two tactics we'll learn are `exact` and `intros`.
 
-.. list-table::
-   :widths: 20 80
-   :header-rows: 0
+- `exact`
 
-   * - `exact`
-     - If
-       `P` is the target of the current goal
-       and `hp` is a term of type `P`,
-       then `exact hp,` will close the goal.
+  If `P` is the target of the current goal
+  and `hp` is a term of type `P`,
+  then `exact hp,` will close the goal.
 
-       Mathematically, this saying "this is *exactly* what we were required to prove".
+  Mathematically, this saying "this is *exactly* what we were required to prove".
 
-   * - `intro`
-     - If the target of the current goal is a function `P → Q`,
-       then `intro hp,` will produce a hypothesis
-       `hp : P` and change the target to  `Q`.
+- `intro`
 
-       Mathematically, this is saying that in order to define a function from `P` to `Q`,
-       we first need to choose an arbitrary element of `P`.
+  If the target of the current goal is a function `P → Q`,
+  then `intro hp,` will produce a hypothesis
+  `hp : P` and change the target to  `Q`.
 
+  Mathematically, this is saying that in order to define a function from `P` to `Q`,
+  we first need to choose an arbitrary element of `P`.
 
-> - `exact`:
+> - `exact`
+>
 >   If `P` is the target of the current goal and
 >   `hp` is a term of type `P`, then
 >   `exact hp,` will close the goal.
 >
-> - `intro`:
+> - `intro`
+>
 >   If the target of the current goal is a function `P → Q`, then
 >   `intro hp,` will produce a hypothesis
 >   `hp : P` and change the target to  `Q`.
@@ -152,36 +150,36 @@ end
 
 The next two tactics are `have` and `apply`.
 
-.. list-table::
-   :widths: 20 80
-   :header-rows: 0
+* `have`
 
-   * - `have`
-     - `have` is used to create intermediate variables.
+  `have` is used to create intermediate variables.
 
-       If `f` is a term of type `P → Q` and
-       `hp` is a term of type `P`, then
-       `have hq := f(hp),` creates the hypothesis `hq : Q` .
+  If `f` is a term of type `P → Q` and
+  `hp` is a term of type `P`, then
+  `have hq := f(hp),` creates the hypothesis `hq : Q` .
 
-   * - `apply`
-     - `apply` is used for backward reasoning.
+* `apply`
 
-       If the target of the current goal is `Q` and
-       `f` is a term of type `P → Q`, then
-       `apply f,` changes target to `P`.
+  `apply` is used for backward reasoning.
 
-       Mathematically, this is equivalent to saying "because `P` implies `Q`, to prove `Q` it suffices to prove `P`".
+  If the target of the current goal is `Q` and
+  `f` is a term of type `P → Q`, then
+  `apply f,` changes target to `P`.
+
+  Mathematically, this is equivalent to saying "because `P` implies `Q`, to prove `Q` it suffices to prove `P`".
 
 Often these two tactics can be used interchangeably.
 Think of `have` as reasoning forward and `apply` as reasoning backward.
 When writing a big proof, you often want a healthy combination of the two that makes the proof readable.
 
-> - `have`:
+> - `have`
+>
 >   If `f` is a term of type `P → Q` and
 >   `hp` is a term of type `P`, then
 >   `have hq := f(hp),` creates the hypothesis `hq : Q` .
 >
-> - `apply`:
+> - `apply`
+>
 >   If the target of the current goal is `Q` and
 >   `f` is a term of type `P → Q`, then
 >   `apply f,` changes target to `P`.
@@ -212,6 +210,7 @@ For the following exercises, recall that `¬ P` is defined as `P → false`,
 
 
 > Recall that
+>
 > - `¬ P` is `P → false`,
 > - `¬ (¬ P)` is `(P → false) → false`, and so on.
 >
@@ -269,63 +268,66 @@ and so `P ↔ ¬ ¬ P`.
 This is the axiom that allows for proofs by contradiction.
 Lean provides us the following tactics to use it.
 
-.. list-table::
-  :widths: 10 90
-  :header-rows: 0
+* `exfalso`
+  Changes the target of the current goal to `false`.
 
-  * - `exfalso`
-    - Changes the target of the current goal to `false`.
+  The name derives from ["ex falso, quodlibet"](https://en.wikipedia.org/wiki/Principle_of_explosion>) which translates to "from contradiction, anything".
+  You should use this tactic when there are contradictory hypotheses present.
 
-      The name derives from ["ex falso, quodlibet"](https://en.wikipedia.org/wiki/Principle_of_explosion>) which translates to "from contradiction, anything".
-      You should use this tactic when there are contradictory hypotheses present.
+- `by_cases`
 
-  * - `by_cases`
-    - If `P : Prop`, then `by_cases P,` creates two goals,
-      the first with a hypothesis `hp: P` and second with a hypothesis `hp: ¬ P`.
+  If `P : Prop`, then `by_cases P,` creates two goals,
+  the first with a hypothesis `hp: P` and second with a hypothesis `hp: ¬ P`.
 
-      Mathematically, this is saying either `P` is true or `P` is false.
-      `by_cases` is the most direct application of the law of excluded middle.
+  Mathematically, this is saying either `P` is true or `P` is false.
+  `by_cases` is the most direct application of the law of excluded middle.
 
-  * - `by_contradiction`
-    - If the target of the current goal is  `Q`,
-      then `by_contradiction,` changes the target to  `false` and
-      adds `hnq : ¬ Q` as a hypothesis.
+- `by_contradiction`
 
-      Mathematically, this is proof by contradiction.
+  If the target of the current goal is  `Q`,
+  then `by_contradiction,` changes the target to  `false` and
+  adds `hnq : ¬ Q` as a hypothesis.
 
-  * - `push_neg`
-    - `push_neg,` simplifies negations in the target.
+  Mathematically, this is proof by contradiction.
 
-      For example, if the target of the current goal is `¬ ¬ P`, then
-      `push_neg,` simplifies it to `P`.
+- `push_neg`
 
-      You can also push negations across a hypothesis `hp : P` using `push_neg at hp,`.
+  `push_neg,` simplifies negations in the target.
 
-  * - `contrapose!`
-    - If the target of the current goal is  `P → Q`,
-      then `contrapose!,` changes the target to  `¬ Q → ¬ P`.
+  For example, if the target of the current goal is `¬ ¬ P`, then
+  `push_neg,` simplifies it to `P`.
 
-      If the target of the current goal is `Q`
-      and one of the hypotheses is `hp : P`,
-      then `contrapose! hp,` changes the target to  `¬ P`
-      and changes the hypothesis to `hp : ¬ Q`.
+  You can also push negations across a hypothesis `hp : P` using `push_neg at hp,`.
 
-      Mathematically, this is replacing the target by its contrapositive.
+- `contrapose!`
+
+  If the target of the current goal is  `P → Q`,
+  then `contrapose!,` changes the target to  `¬ Q → ¬ P`.
+
+  If the target of the current goal is `Q`
+  and one of the hypotheses is `hp : P`,
+  then `contrapose! hp,` changes the target to  `¬ P`
+  and changes the hypothesis to `hp : ¬ Q`.
+
+  Mathematically, this is replacing the target by its contrapositive.
 
 Even though the list is long, these tactics are almost all *obvious*.
 The only two slightly unusual tactics are `exfalso` and `by_cases`.
 You'll see `by_cases` in action later.
 For the following exercises, you only require `exfalso`, `push_neg`, and `contrapose!`.
 
-> - `exfalso`:
+> - `exfalso`
+>
 >   Changes the target of the current goal to `false`.
 >
-> - `push_neg`:
+> - `push_neg`
+>
 >   `push_neg,` simplifies negations in the target.
 >   You can push negations across a hypothesis `hp : P` using
 >   `push_neg at hp,`.
 >
-> - `contrapose!`:
+> - `contrapose!`
+>
 >   If the target of the current goal is  `P → Q`,
 >   then `contrapose!,` changes the target to  `¬ Q → ¬ P`.
 >

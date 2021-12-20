@@ -1,4 +1,3 @@
-- fix table syntax
 - fix `:doc:` relative links
 
 - we need a way to handle dependency -- `lean hide dependency`
