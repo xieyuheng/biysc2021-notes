@@ -70,6 +70,7 @@ Let us parse the above statement.
 * `:` is the delimiter between hypotheses and targets
 * `¬ (∃ x y z : ℕ, (x^n + y^n = z^n) ∧ (x ≠ 0) ∧ (y ≠ 0) ∧ (z ≠ 0))` is the *target* of the theorem.
 * `:= begin ... end` contains the proof. When you start your proof, Lean opens up a goal window  for you to keep track of hypotheses and targets.
+
   **Your goal is to produce a term that has the type of the target**.
 
   ``` lean
