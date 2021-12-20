@@ -97,43 +97,41 @@ Similarly for `P ∨ Q`, with a subtle change (see below).
 
 **Note** that when multiple goals are open, you are trying to solve the topmost goal.
 
-.. list-table::
-  :widths: 10 90
-  :header-rows: 0
+- `cases`
 
-| name    | description                                                                                          |
-|---------|------------------------------------------------------------------------------------------------------|
-| `cases` | `cases` is a general tactic that breaks a complicated term into simpler ones.                        |
-|         | If `hpq` is a term of type `P ∧ Q`, then                                                            |
-|         | `cases hpq with hp hq,` breaks it into `hp : P` and `hp : Q`.                                        |
-|         |                                                                                                      |
-|         | If `fg` is a term of type `P ↔ Q`, then                                                              |
-|         | `cases fg with f g,` breaks it into `f : P → Q` and `g : Q → P`.                                   |
-|         |                                                                                                      |
-|         | If `hpq` is a term of type `P ∨ Q`, then                                                            |
-|         | `cases hpq with hp hq,` creates two goals and adds the hypotheses `hp : P` and `hq : Q` to one each. |
+  `cases` is a general tactic that breaks a complicated term into simpler ones.
+   If `hpq` is a term of type `P ∧ Q`, then
+   `cases hpq with hp hq,` breaks it into `hp : P` and `hp : Q`.
 
-<!--
-* - `split`
-  - `split` is a general tactic that breaks a complicated goal into simpler ones.
+   If `fg` is a term of type `P ↔ Q`, then
+   `cases fg with f g,` breaks it into `f : P → Q` and `g : Q → P`.
 
-    If the target of the current goal is `P ∧ Q`, then
-    `split,` breaks up the goal into two goals with targets `P` and `Q`.
+   If `hpq` is a term of type `P ∨ Q`, then
+   `cases hpq with hp hq,` creates two goals and adds the hypotheses `hp : P` and `hq : Q` to one each.
 
-    If the target of the current goal is `P × Q`, then
-    `split,` breaks up the goal into two goals with targets `P` and `Q`.
+- `split`
 
-    If the target of the current goal is `P ↔ Q`, then
-    `split,` breaks up the goal into two goals with targets `P → Q` and `Q → P`.
+  `split` is a general tactic that breaks a complicated goal into simpler ones.
 
-* - `left`
-  - If the target of the current goal is `P ∨ Q`, then
-    `left,` changes the target to `P`.
+  If the target of the current goal is `P ∧ Q`, then
+  `split,` breaks up the goal into two goals with targets `P` and `Q`.
 
-* - `right`
-  - If the target of the current goal is `P ∨ Q`, then
-    `right,` changes the target to `Q`.
->
+  If the target of the current goal is `P × Q`, then
+  `split,` breaks up the goal into two goals with targets `P` and `Q`.
+
+  If the target of the current goal is `P ↔ Q`, then
+  `split,` breaks up the goal into two goals with targets `P → Q` and `Q → P`.
+
+- `left`
+
+  If the target of the current goal is `P ∨ Q`, then
+  `left,` changes the target to `P`.
+
+- `right`
+
+  If the target of the current goal is `P ∨ Q`, then
+  `right,` changes the target to `Q`.
+
 
 > - `cases`:
 >   `cases` is a general tactic that breaks up complicated terms.
