@@ -1,7 +1,7 @@
-- fix link syntax
 - fix table syntax
+- fix `:doc:` relative links
 
-- we need a way to handle dependency
+- we need a way to handle dependency -- `lean hide dependency`
 
 - link code block to online lean editor
 

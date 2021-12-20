@@ -29,7 +29,7 @@ This is something we don't normally do in math.
 To hide this complication, in type theory there is an axiom, called *proof irrelevance*, which says that
 if `P : Prop` and `hp1 hp2 : P` then `hp1 = hp2`.
 Taking our *analogy* with sets further, you can think of a proposition as a set which is either empty or contains a single element (false or true).
-In fact, in some forms of type theory (e.g. `homotopy type theory <https://en.wikipedia.org/wiki/Homotopy_type_theory>`__) this is taken as the definition of propositions.
+In fact, in some forms of type theory (e.g. [homotopy type theory](https://en.wikipedia.org/wiki/Homotopy_type_theory)) this is taken as the definition of propositions.
 This is of course not true for general types.
 For example, `0 : ℕ ≠ 1 : ℕ`.
 
@@ -49,7 +49,7 @@ end
 Lean constructs a *proof term* `tautology : ∀ P : Prop, P → P`
 (you can see this by typing `#check tautology`).
 
-In type theory, the *for all* quantifier, `∀`, is a generalized function, called a `dependent function <https://en.wikipedia.org/wiki/Dependent_type>`__.
+In type theory, the *for all* quantifier, `∀`, is a generalized function, called a [dependent function](https://en.wikipedia.org/wiki/Dependent_type).
 For all practical purposes, we can think of `tautology` as having the type `(P : Prop) → (P → P)`.
 Note that this is not a function in the classical sense of the word because the codomain `(P → P)` *depends* on the input variable `P`.
 If `Q : Prop`, then `tautology(Q)` is a term of type  `Q → Q`.
@@ -79,7 +79,7 @@ Every time you prove a theorem using tactics a *proof term* gets created.
 Because of proof irrelevance, Lean forgets the exact content of the proof and
 only remembers its type.
 All the proof terms can then be used in later proofs.
-All of this falls under the giant umbrella of the `Curry--Howard correspondence <https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence>`__.
+All of this falls under the giant umbrella of the [Curry--Howard correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence).
 
 We'll now continue our study of the remaining logical operators: *and* (`∧`),
 *or* (`∨`),

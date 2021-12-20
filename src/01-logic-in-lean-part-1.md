@@ -30,7 +30,7 @@ and so a proposition `P` is `true` if there exists a term `hp` of type `P`.
 In set theory, the proposition `P ⇒ Q` ("P implies Q") is true if either both `P` and `Q` are true or if `P` is false.
 In type theory, a proof of an implication `P ⇒ Q` is just a function `f : P → Q`.
 Given a function `f : P → Q`, every proof `hp : P` produces a proof `f hp : Q`.
-If `P` is false then `P` is *empty*, and there exists an `empty function <https://en.wikipedia.org/wiki/Function_(mathematics)#empty_function>`_ from an empty type to any type.
+If `P` is false then `P` is *empty*, and there exists an [empty function](https://en.wikipedia.org/wiki/Function_(mathematics)#empty_function) from an empty type to any type.
 Hence, in type theory we use `→` to denote implication.
 
 
@@ -38,7 +38,7 @@ Hence, in type theory we use `→` to denote implication.
 
 In type theory, there is a special proposition `false : Prop` which has no proof (hence is *empty*).
 The negation of a proposition `¬ P` is the implication `P → false`.
-Such a function exists if and only if `P` itself is empty (`empty function <https://en.wikipedia.org/wiki/Function_(mathematics)#empty_function>`_), hence `P → false` is inhabited if and only if `P` is empty which justifies using it as the definition of `¬ P`.
+Such a function exists if and only if `P` itself is empty ([empty function](https://en.wikipedia.org/wiki/Function_(mathematics)#empty_function)), hence `P → false` is inhabited if and only if `P` is empty which justifies using it as the definition of `¬ P`.
 
 
 **To summarize:**
@@ -276,7 +276,7 @@ Lean provides us the following tactics to use it.
   * - `exfalso`
     - Changes the target of the current goal to `false`.
 
-      The name derives from `"ex falso, quodlibet" <https://en.wikipedia.org/wiki/Principle_of_explosion>`__ which translates to "from contradiction, anything".
+      The name derives from ["ex falso, quodlibet"](https://en.wikipedia.org/wiki/Principle_of_explosion>) which translates to "from contradiction, anything".
       You should use this tactic when there are contradictory hypotheses present.
 
   * - `by_cases`
