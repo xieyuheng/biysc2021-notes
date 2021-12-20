@@ -134,6 +134,25 @@ Similarly for `P ∨ Q`, with a subtle change (see below).
       `right,` changes the target to `Q`.
 
 
+
+> - `cases`:
+>   `cases` is a general tactic that breaks up complicated terms.
+>   If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
+>   `cases hpq with hp hq,`.
+>
+> - `split`:
+>   If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
+>   `split,`.
+>
+> - `left`/`right`:
+>   If the target of the current goal is `P ∨ Q`, then use
+>   either `left,` or `right,` (choose wisely).
+>
+> - `exfalso`:
+>   Changes the target of the current goal to `false`.
+>
+> Delete the `sorry,` below and replace them with a legitimate proof.
+
 ``` lean
 import tactic
 
@@ -142,33 +161,6 @@ noncomputable theory
 open_locale classical
 
 --BEGIN--
-
-
-/--------------------------------------------------------------------------
-
-`cases`
-
-  `cases` is a general tactic that breaks up complicated terms.
-  If `hpq` is a term of type `P ∧ Q` or `P ∨ Q` or `P ↔ Q`, then use
-  `cases hpq with hp hq,`.
-
-`split`
-
-  If the target of the current goal is `P ∧ Q` or `P ↔ Q`, then use
-  `split,`.
-
-`left`/`right`
-
-  If the target of the current goal is `P ∨ Q`, then use
-  either `left,` or `right,` (choose wisely).
-
-`exfalso`
-
-  Changes the target of the current goal to `false`.
-
-Delete the `sorry,` below and replace them with a legitimate proof.
-
---------------------------------------------------------------------------/
 
 example (P Q : Prop) : P ∧ Q → Q ∧ P :=
 begin

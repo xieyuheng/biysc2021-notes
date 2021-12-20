@@ -114,26 +114,20 @@ The first two tactics we'll learn are `exact` and `intros`.
        Mathematically, this is saying that in order to define a function from `P` to `Q`,
        we first need to choose an arbitrary element of `P`.
 
+
+> - `exact`:
+>   If `P` is the target of the current goal and
+>   `hp` is a term of type `P`, then
+>   `exact hp,` will close the goal.
+>
+> - `intro`:
+>   If the target of the current goal is a function `P → Q`, then
+>   `intro hp,` will produce a hypothesis
+>   `hp : P` and change the target to  `Q`.
+>
+> Delete the `sorry,` below and replace them with a legitimate proof.
+
 ``` lean
-/--------------------------------------------------------------------------
-
-`exact`
-
-  If `P` is the target of the current goal and
-  `hp` is a term of type `P`, then
-  `exact hp,` will close the goal.
-
-
-`intro`
-
-  If the target of the current goal is a function `P → Q`, then
-  `intro hp,` will produce a hypothesis
-  `hp : P` and change the target to  `Q`.
-
-Delete the `sorry,` below and replace them with a legitimate proof.
-
---------------------------------------------------------------------------/
-
 theorem tautology (P : Prop) (hp : P) : P :=
 begin
   sorry,
@@ -182,25 +176,19 @@ Often these two tactics can be used interchangeably.
 Think of `have` as reasoning forward and `apply` as reasoning backward.
 When writing a big proof, you often want a healthy combination of the two that makes the proof readable.
 
+> - `have`:
+>   If `f` is a term of type `P → Q` and
+>   `hp` is a term of type `P`, then
+>   `have hq := f(hp),` creates the hypothesis `hq : Q` .
+>
+> - `apply`:
+>   If the target of the current goal is `Q` and
+>   `f` is a term of type `P → Q`, then
+>   `apply f,` changes target to `P`.
+>
+> Delete the `sorry,` below and replace them with a legitimate proof.
+
 ``` lean
-/--------------------------------------------------------------------------
-
-`have`
-
-  If `f` is a term of type `P → Q` and
-  `hp` is a term of type `P`, then
-  `have hq := f(hp),` creates the hypothesis `hq : Q` .
-
-
-`apply`
-
-  If the target of the current goal is `Q` and
-  `f` is a term of type `P → Q`, then
-  `apply f,` changes target to `P`.
-
-Delete the `sorry,` below and replace them with a legitimate proof.
-
---------------------------------------------------------------------------/
 
 example (P Q R : Prop) (hp : P) (f : P → Q) (g : Q → R) : R :=
 begin
@@ -222,17 +210,14 @@ end
 For the following exercises, recall that `¬ P` is defined as `P → false`,
 `¬ (¬ P)` is `(P → false) → false`, and so on.
 
+
+> Recall that
+> - `¬ P` is `P → false`,
+> - `¬ (¬ P)` is `(P → false) → false`, and so on.
+>
+> Delete the `sorry,` below and replace them with a legitimate proof.
+
 ``` lean
-/--------------------------------------------------------------------------
-
-Recall that
-  `¬ P` is `P → false`,
-  `¬ (¬ P)` is `(P → false) → false`, and so on.
-
-Delete the `sorry,` below and replace them with a legitimate proof.
-
---------------------------------------------------------------------------/
-
 theorem self_imp_not_not_self (P : Prop) : P → ¬ (¬ P) :=
 begin
   sorry,
@@ -254,16 +239,12 @@ end
 You can prove exactly one of the converses of the above three using just `exact`, `intro`, `have`, and `apply`.
 Can you find which one?
 
+> You can prove exactly one of the following three using just
+> `exact`, `intro`, `have`, and `apply`.
+>
+> Can you find which one?
+
 ``` lean
-/--------------------------------------------------------------------------
-
-You can prove exactly one of the following three using just
-`exact`, `intro`, `have`, and `apply`.
-
-Can you find which one?
-
---------------------------------------------------------------------------/
-
 theorem not_not_self_imp_self (P : Prop) : ¬ ¬ P → P:=
 begin
   sorry,
@@ -336,6 +317,25 @@ The only two slightly unusual tactics are `exfalso` and `by_cases`.
 You'll see `by_cases` in action later.
 For the following exercises, you only require `exfalso`, `push_neg`, and `contrapose!`.
 
+> - `exfalso`:
+>   Changes the target of the current goal to `false`.
+>
+> - `push_neg`:
+>   `push_neg,` simplifies negations in the target.
+>   You can push negations across a hypothesis `hp : P` using
+>   `push_neg at hp,`.
+>
+> - `contrapose!`:
+>   If the target of the current goal is  `P → Q`,
+>   then `contrapose!,` changes the target to  `¬ Q → ¬ P`.
+>
+>   If the target of the current goal is `Q` and
+>   one of the hypotheses is `hp : P`, then
+>   `contrapose! hp,` changes the target to  `¬ P` and
+>   changes the hypothesis to `hp : ¬ Q`.
+>
+> Delete the `sorry,` below and replace them with a legitimate proof.
+
 ``` lean
 import tactic
 
@@ -345,35 +345,6 @@ open_locale classical
 
 
 --BEGIN--
-
-
-/--------------------------------------------------------------------------
-
-`exfalso`
-
-  Changes the target of the current goal to `false`.
-
-`push_neg`
-
-  `push_neg,` simplifies negations in the target.
-  You can push negations across a hypothesis `hp : P` using
-  `push_neg at hp,`.
-
-
-`contrapose!`
-
-  If the target of the current goal is  `P → Q`,
-  then `contrapose!,` changes the target to  `¬ Q → ¬ P`.
-
-  If the target of the current goal is `Q` and
-  one of the hypotheses is `hp : P`, then
-  `contrapose! hp,` changes the target to  `¬ P` and
-  changes the hypothesis to `hp : ¬ Q`.
-
-
-Delete the `sorry,` below and replace them with a legitimate proof.
-
---------------------------------------------------------------------------/
 
 theorem not_not_self_imp_self (P : Prop) : ¬ ¬ P → P:=
 begin
