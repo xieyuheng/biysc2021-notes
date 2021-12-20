@@ -1,2 +1,3 @@
-- we need a way to handle dependency -- `lean hide dependency`
-- link code block to online lean editor
+- improve lean syntax highlighting
+  - we need a way to handle code block dependency
+- improve lean syntax highlighting
