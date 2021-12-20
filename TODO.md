@@ -1,3 +1,4 @@
-- improve lean syntax highlighting
+- render latex
+- link code block to online lean editor
   - we need a way to handle code block dependency
 - improve lean syntax highlighting
