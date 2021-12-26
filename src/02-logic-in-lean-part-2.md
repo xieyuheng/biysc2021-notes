@@ -8,8 +8,8 @@ Your mission today is to wrap up the remaining bits of logic
 and move on to doing some "actual math".
 
 Remember to **always save your work**.
-You might find the [Glossary of tactics](appendix-a-pretty-symbols-in-lean.md) page
-and the [Pretty symbols](./appendix-b-glossary-of-tactics.md) page useful.
+You might find the [Glossary of tactics](99-appendix-a-pretty-symbols-in-lean.md) page
+and the [Pretty symbols](99-appendix-b-glossary-of-tactics.md) page useful.
 
 Before we move on to new stuff, let's understand what we did yesterday.
 
